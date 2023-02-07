@@ -1,0 +1,42 @@
+import java.net.*;
+import java.io.*;
+import java.util.HashMap;
+import java.net.InetAddress;
+
+public class ResolvedorDNS{
+
+	public static void main(String[] args) throws Exception{
+
+		ServerSocket ss = new ServerSocket(4999);
+		Socket cliente = ss.accept();
+		System.out.println("Cliente conectado.");
+
+		String ip;
+		while(true){
+
+			ObjectInputStream entrada = new ObjectInputStream(cliente.getInputStream());
+	        String url = (String)entrada.readObject();
+
+	        cliente.close();
+	        ss.close();
+	        //O Server Local é apenas para armazenar em cache os enderecos ip acessados
+	        ServerLocal serverLocal = new ServerLocal(url, 27420);
+			Socket socket = new Socket("localhost", 27420);
+
+			ip = serverLocal.getIp();
+
+	        if(ip==null){
+
+	        	NameServerRaiz nameServerRaiz = new NameServerRaiz(url, 18954);
+
+	        	ip = nameServerRaiz.getEnderecoTLD();
+
+	        	//if
+	        }else{
+	        	System.out.println(url+"="+ip);
+			}
+		}
+
+	}
+
+}

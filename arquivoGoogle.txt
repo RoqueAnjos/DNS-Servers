@@ -1,0 +1,1 @@
+172.217.28.14=google.com,172.168.28.12=googleimagens.com

@@ -1,0 +1,1 @@
+{187.155.155.0=americanas.com.br, 187.155.155.1=magalu.com.br}
